@@ -1,0 +1,9 @@
+# Libraries
+
+opencv
+imutils
+sklearn
+keras
+pickle
+numpy
+collections
