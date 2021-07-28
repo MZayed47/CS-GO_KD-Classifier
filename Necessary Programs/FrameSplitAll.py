@@ -22,11 +22,13 @@ def create_dir(path):
 def save_frame(video_path, save_dir, gap=1):
     name = video_path.split("/")[-1].split(".")[0]
     save_path = os.path.join(save_dir, name)
+    none_path = os.path.join(save_dir, 'none', name)
     create_dir(save_path)
-
+    create_dir(none_path)
+    
     cap = cv2.VideoCapture(video_path)
-    idx = 0
-
+    idx = 1
+    
     while True:
         ret, frame = cap.read()
 
@@ -34,10 +36,11 @@ def save_frame(video_path, save_dir, gap=1):
             cap.release()
             break
 
-        if idx == 0:
-            filename = save_path + "_" + str(idx) + ".png"
+
+        if idx <= 10:
+            filename = none_path + "_" + str(idx) + ".png"
             cv2.imwrite(filename, frame)
-        else:
+        elif idx > 10:
             if idx % gap == 0:
                 filename = save_path + "_" + str(idx) + ".png"
                 cv2.imwrite(filename, frame)
@@ -48,10 +51,13 @@ def save_frame(video_path, save_dir, gap=1):
 if __name__ == "__main__":
     
     # All kill
-    video_paths = glob("kill/*")
+    #video_paths = glob("kill/*")
     
     # All death
     #video_paths = glob("death/*")
+    
+    # All none
+    video_paths = glob("none/*")
     
     save_dir = "frames"
 
